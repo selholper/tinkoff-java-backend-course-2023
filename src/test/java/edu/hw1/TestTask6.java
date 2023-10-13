@@ -96,6 +96,10 @@ public class TestTask6 {
         ).isInstanceOf(IllegalArgumentException.class);
 
         assertThatThrownBy(
+            () -> Task6.countK(1111)
+        ).isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(
             () -> Task6.countK(1000)
         ).isInstanceOf(IllegalArgumentException.class);
 
