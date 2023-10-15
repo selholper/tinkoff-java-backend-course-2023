@@ -17,10 +17,10 @@ public final class Task6 {
     private static boolean checkIfDigitsEqual(int[] digits) {
         for (int i = 0; i < NUMBER_OF_DIGITS - 1; ++i) {
             if (digits[i] != digits[i + 1]) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     private static void sortNumberDigits(int[] digits) {
@@ -66,7 +66,7 @@ public final class Task6 {
             copyNumber /= RADIX;
         }
 
-        if (!checkIfDigitsEqual(digits)) {
+        if (checkIfDigitsEqual(digits)) {
             throw new IllegalArgumentException("All digits of the number must not be the same");
         }
 
