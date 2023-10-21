@@ -13,7 +13,7 @@ public final class Square extends Rectangle {
 
     public Square setSide(int side) {
         if (side < 0) {
-            throw new IllegalArgumentException("Сторона квадрата не может быть отрицательной");
+            throw new IllegalArgumentException("The side of a square cannot be negative");
         }
 
         return new Square(side);

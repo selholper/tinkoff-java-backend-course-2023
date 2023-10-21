@@ -13,24 +13,24 @@ public sealed class Rectangle permits Square {
 
     public Rectangle(int width, int height) {
         if (width < 0 || height < 0) {
-            throw new IllegalArgumentException("Ширина или высота прямоугольника не могут быть отрицательными");
+            throw new IllegalArgumentException("The width or height of a rectangle cannot be negative");
         }
 
         this.width = width;
         this.height = height;
     }
 
-    public Rectangle setWidth(int width) {
+    public final Rectangle setWidth(int width) {
         if (width < 0) {
-            throw new IllegalArgumentException("Ширина прямоугольника не может быть отрицательной");
+            throw new IllegalArgumentException("The width of a rectangle cannot be negative");
         }
 
         return new Rectangle(width, height);
     }
 
-    public Rectangle setHeight(int height) {
+    public final Rectangle setHeight(int height) {
         if (height < 0) {
-            throw new IllegalArgumentException("Высота прямоугольника не может быть отрицательной");
+            throw new IllegalArgumentException("The height of a rectangle cannot be negative");
         }
 
         return new Rectangle(width, height);

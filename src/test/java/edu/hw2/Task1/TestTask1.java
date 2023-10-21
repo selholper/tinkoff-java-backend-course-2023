@@ -1,6 +1,5 @@
-package edu.hw2;
+package edu.hw2.Task1;
 
-import edu.hw2.Task1.Expression;
 import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

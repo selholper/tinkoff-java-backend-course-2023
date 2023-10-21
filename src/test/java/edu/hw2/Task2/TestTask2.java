@@ -1,7 +1,5 @@
-package edu.hw2;
+package edu.hw2.Task2;
 
-import edu.hw2.Task2.Square;
-import edu.hw2.Task2.Rectangle;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.Arguments;
@@ -30,7 +28,7 @@ public class TestTask2 {
     }
 
     @ParameterizedTest
-    @DisplayName("Проверка метода класса Square")
+    @DisplayName("Проверка сеттера класса Square")
     @ValueSource(ints = {1, 2, 3, 4, 5})
     void testSquareMethod(int side) {
         Square square = new Square();
