@@ -55,7 +55,8 @@ public class TestTask3 {
     }
 
     @Test
-    @DisplayName("Тестирование метода close для FaultyConnection")
+    @DisplayName("Тестирование метода close для FaultyConnection"
+        + "с использованием оператора try")
     void testCloseFaultyConnection() {
         FaultyConnection faultyConnection = new FaultyConnection();
         try {
@@ -102,7 +103,7 @@ public class TestTask3 {
     @DisplayName("Тестирование метода tryExecute класса PopularCommandExecutor, "
         + "когда он не возвращает исключение ConnectionException")
     void testTryExecuteWithoutException() {
-        int seed = 1;
+        int seed = 142;
         Random random = new Random(seed);
         PopularCommandExecutor popularCommandExecutor =
             new PopularCommandExecutor(new DefaultConnectionManager(random), 100);
