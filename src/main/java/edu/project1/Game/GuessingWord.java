@@ -11,9 +11,9 @@ public class GuessingWord {
     private final String word;
     private char[] userWord;
 
-    public GuessingWord(String actualWord) {
+    public GuessingWord(String word) {
         Arrays.fill(isAlreadyGuess, false);
-        this.word = actualWord;
+        this.word = word;
         initializeUserWord();
     }
 

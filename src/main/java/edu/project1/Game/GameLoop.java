@@ -16,7 +16,6 @@ public abstract class GameLoop {
 
     public void prepare() {
         Objects.requireNonNull(configuration);
-        Objects.requireNonNull(configuration.getDictionary());
 
         Dictionary dictionary = configuration.getDictionary();
         String word = dictionary.getSomeWord();
