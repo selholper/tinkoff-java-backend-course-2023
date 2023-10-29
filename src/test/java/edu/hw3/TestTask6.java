@@ -1,21 +1,21 @@
 package edu.hw3;
 
-//import edu.hw3.Task6.Stock;
-//import edu.hw3.Task6.StockMarket;
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.params.ParameterizedTest;
-//import org.junit.jupiter.params.provider.Arguments;
-//import org.junit.jupiter.params.provider.EmptySource;
-//import org.junit.jupiter.params.provider.MethodSource;
-//import org.junit.jupiter.params.provider.NullSource;
-//import java.util.List;
-//import java.util.PriorityQueue;
-//import java.util.stream.Stream;
-//import static org.assertj.core.api.Assertions.assertThatThrownBy;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.hw3.Task6.Stock;
+import edu.hw3.Task6.StockMarket;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import java.util.PriorityQueue;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.List;
+import java.util.stream.Stream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTask6 {
-    /*private static Stream<Arguments> testBestOfferStockMarket_shouldReturnIllegalArgumentException() {
+    private static Stream<Arguments> testBestOfferStockMarket_shouldReturnIllegalArgumentException() {
         return Stream.of(
             Arguments.of(new Stock("123", -1)),
             Arguments.of(new Stock("ABC", -1.1)),
@@ -47,28 +47,28 @@ public class TestTask6 {
     @ParameterizedTest
     @NullSource
     @DisplayName("Тестирование работы класса (записи) биржи для null приоритетной очереди")
-    void testBestOfferStockMarket_shouldReturnIllegalArgumentExceptionForNullPriorityQueue(
+    void testBestOfferStockMarket_shouldReturnNullPointerExceptionForNullPriorityQueue(
         PriorityQueue<Stock> priorityStocks) {
         assertThatThrownBy(
             () -> new StockMarket.BestOfferStockMarket(priorityStocks)
-        ).isInstanceOf(IllegalArgumentException.class);
+        ).isInstanceOf(NullPointerException.class);
     }
 
     @ParameterizedTest
     @NullSource
     @DisplayName("Тестирование работы классов (записи) биржи для null объекта класса акции")
-    void testBestOfferStockMarket_shouldReturnIllegalArgumentExceptionForNullStock(
+    void testBestOfferStockMarket_shouldReturnINullPointerExceptionForNullStock(
         Stock stock) {
         PriorityQueue <Stock> priorityQueue = new PriorityQueue<>();
         StockMarket bestOfferStockMarket = new StockMarket.BestOfferStockMarket(priorityQueue);
 
         assertThatThrownBy(
             () -> bestOfferStockMarket.add(stock)
-        ).isInstanceOf(IllegalArgumentException.class);
+        ).isInstanceOf(NullPointerException.class);
 
         assertThatThrownBy(
             () -> bestOfferStockMarket.remove(stock)
-        ).isInstanceOf(IllegalArgumentException.class);
+        ).isInstanceOf(NullPointerException.class);
     }
 
     @ParameterizedTest
@@ -85,10 +85,10 @@ public class TestTask6 {
     @ParameterizedTest
     @NullSource
     @DisplayName("Тестирование работы класса (записи) акции для null строки")
-    void testStock_shouldReturnIllegalArgumentExceptionForNullString(String string) {
+    void testStock_shouldReturnNullPointerExceptionForNullString(String string) {
         assertThatThrownBy(
             () -> new Stock(string, 123)
-        ).isInstanceOf(IllegalArgumentException.class);
+        ).isInstanceOf(NullPointerException.class);
     }
 
     @ParameterizedTest
@@ -138,5 +138,5 @@ public class TestTask6 {
             assertEquals(bestOfferStockMarket.mostValuableStock(), stock);
             bestOfferStockMarket.remove(stock);
         }
-    }*/
+    }
 }

@@ -1,9 +1,9 @@
 package edu.hw3.Task6;
 
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.jetbrains.annotations.NotNull;
 
 public sealed interface StockMarket {
     void add(Stock stock);
@@ -12,12 +12,18 @@ public sealed interface StockMarket {
 
     Stock mostValuableStock();
 
-    record BestOfferStockMarket(@NotNull PriorityQueue<Stock> priorityStocks) implements StockMarket {
+    record BestOfferStockMarket(PriorityQueue<Stock> priorityStocks) implements StockMarket {
+        public BestOfferStockMarket {
+            Objects.requireNonNull(priorityStocks);
+        }
+
         private static final Pattern TICKER_PATTERN =
             Pattern.compile("^[A-Z]{3,5}$");
 
         @Override
-        public void add(@NotNull Stock stock) {
+        public void add(Stock stock) {
+            Objects.requireNonNull(stock);
+
             Matcher matcherTickerPattern = TICKER_PATTERN.matcher(stock.ticker());
 
             if (!matcherTickerPattern.matches()) {
@@ -32,7 +38,9 @@ public sealed interface StockMarket {
         }
 
         @Override
-        public void remove(@NotNull Stock stock) {
+        public void remove(Stock stock) {
+            Objects.requireNonNull(stock);
+
             Matcher matcherTickerPattern = TICKER_PATTERN.matcher(stock.ticker());
 
             if (priorityStocks.isEmpty()) {
