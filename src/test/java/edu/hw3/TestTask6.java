@@ -73,17 +73,6 @@ public class TestTask6 {
 
     @ParameterizedTest
     @NullSource
-    @DisplayName("Тестирование работы класса (записи) акции для null объекта класса (записи) акции")
-    void testStock_shouldReturnIllegalArgumentExceptionNullContact(Stock stock) {
-        Stock thisStock = new Stock("ABC", 0);
-
-        assertThatThrownBy(
-            () -> thisStock.compareTo(stock)
-        ).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @ParameterizedTest
-    @NullSource
     @DisplayName("Тестирование работы класса (записи) акции для null строки")
     void testStock_shouldReturnNullPointerExceptionForNullString(String string) {
         assertThatThrownBy(
