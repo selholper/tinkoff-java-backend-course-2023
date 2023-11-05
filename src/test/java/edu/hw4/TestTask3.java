@@ -1,64 +1,99 @@
 package edu.hw4;
 
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullSource;
 import java.util.List;
 import java.util.Map;
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
+import java.util.stream.Stream;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTask3 {
-    @Test
-    public void givenAList_whenConvertAfterJava8_thenReturnMapWithTheSameElements() {
-        List<Animal> list = new ArrayList<>();
+    private static Stream<Arguments> testHowManyAnimalsOfEachType_shouldReturnMapOfAnimalsFrequency() {
+        return Stream.of(
+            Arguments.of(
+                List.of(
+                    new Animal(
+                        "Murka",
+                        Animal.Type.CAT,
+                        Animal.Sex.FEMALE,
+                        10,
+                        123,
+                        3,
+                        true
+                    )
+                ),
+                Map.of(
+                    Animal.Type.CAT, 1
+                )
+            ),
 
-        list.add(
-            new Animal(
-                "BORIS",
-                Animal.Type.CAT,
-                Animal.Sex.MALE,
-                10,
-                20,
-                30,
-                false
+            Arguments.of(
+                List.of(
+                    new Animal(
+                        "Murka",
+                        Animal.Type.CAT,
+                        Animal.Sex.FEMALE,
+                        10,
+                        123,
+                        3,
+                        true
+                    ),
+
+                    new Animal(
+                        "Bobby",
+                        Animal.Type.DOG,
+                        Animal.Sex.MALE,
+                        3,
+                        154,
+                        10,
+                        true
+                    ),
+
+                    new Animal(
+                        "Gosha",
+                        Animal.Type.SPIDER,
+                        Animal.Sex.MALE,
+                        3,
+                        23,
+                        1,
+                        true
+                    )
+                ),
+                Map.of(
+                    Animal.Type.CAT, 1,
+                    Animal.Type.DOG, 1,
+                    Animal.Type.SPIDER, 1
+                )
             )
         );
+    }
 
-        list.add(
-            new Animal(
-                "BOBBY",
-                Animal.Type.DOG,
-                Animal.Sex.MALE,
-                10,
-                20,
-                30,
-                true
-            )
-        );
+    @ParameterizedTest
+    @NullSource
+    void testHowManyAnimalsOfEachType_shouldThrowNullPointerException(List<Animal> listAnimals) {
+        assertThatThrownBy(
+            () -> Task3.howManyAnimalsOfEachType(listAnimals)
+        ).isInstanceOf(NullPointerException.class);
+    }
 
-        list.add(
-            new Animal(
-                "ARKADY",
-                Animal.Type.FISH,
-                Animal.Sex.MALE,
-                10,
-                20,
-                30,
-                false
-            )
-        );
+    @ParameterizedTest
+    @EmptySource
+    void testHowManyAnimalsOfEachType_shouldReturnEmptyMapOfAnimalsFrequency(
+        List<Animal> listAnimals
+    ) {
+        assertEquals(Task3.howManyAnimalsOfEachType(listAnimals), Map.of());
+    }
 
-        list.add(
-            new Animal(
-                "ARKADY",
-                Animal.Type.FISH,
-                Animal.Sex.MALE,
-                10,
-                20,
-                30,
-                false
-            )
-        );
-
-        System.out.println(Task3.howManyAnimalsOfEachType(list));
+    @ParameterizedTest
+    @MethodSource
+    void testHowManyAnimalsOfEachType_shouldReturnMapOfAnimalsFrequency(
+        List<Animal> listAnimals,
+        Map<Animal.Type, Integer> expectedResult
+    ) {
+        assertEquals(Task3.howManyAnimalsOfEachType(listAnimals), expectedResult);
     }
 }

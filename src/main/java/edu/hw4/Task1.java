@@ -12,9 +12,6 @@ public final class Task1 {
     @NotNull
     public static List<Animal> sortByHeight(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         return listAnimals
             .stream()

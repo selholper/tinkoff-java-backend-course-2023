@@ -12,9 +12,6 @@ public final class Task10 {
     @NotNull
     public static List<Animal> listAnimalsWhichAgeNotEqualsToPawNumber(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         return listAnimals
             .stream()

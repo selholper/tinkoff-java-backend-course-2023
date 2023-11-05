@@ -14,9 +14,6 @@ public final class Task11 {
     @NotNull
     public static List<Animal> listAnimalsGreaterOneMetreWhichBites(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         return listAnimals
             .stream()

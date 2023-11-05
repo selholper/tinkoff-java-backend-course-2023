@@ -13,9 +13,6 @@ public final class Task2 {
     @NotNull
     public static List<Animal> sortByWeight(List<Animal> listAnimals, int k) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         if (k < 0 || k > listAnimals.size()) {
             throw new IllegalArgumentException("Wrong number of elements for sorting");

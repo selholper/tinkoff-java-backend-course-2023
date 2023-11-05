@@ -1,11 +1,10 @@
 package edu.hw4;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
 
 public final class Task15 {
     private Task15() {
@@ -18,11 +17,8 @@ public final class Task15 {
         int l
     ) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
-        if (k < 1 || l < k) {
+        if (k < 0 || l < k) {
             throw new IllegalArgumentException("Wrong age arguments");
         }
 

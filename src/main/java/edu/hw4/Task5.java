@@ -1,10 +1,9 @@
 package edu.hw4;
 
-
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class Task5 {
@@ -13,9 +12,6 @@ public final class Task5 {
 
     public static Animal.Sex mostCommonSexOfAnimals(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         if (listAnimals.isEmpty()) {
             throw new IllegalArgumentException("List is empty, cannot define most common sex of animals");

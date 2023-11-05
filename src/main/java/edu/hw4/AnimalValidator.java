@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AnimalValidator {
-    static final int MIN_NAME_SIZE = 3;
-
+    private static final Pattern PATTERN = Pattern.compile("^[A-Z][a-z]+( [A-Z][a-z]+)*$");
     private final List<Function<Animal, Optional<AnimalValidationError>>> validations = new ArrayList<>();
 
     public AnimalValidator() {
-        registerValidation(BasicAnimalValidations::validateAge);
-        registerValidation(BasicAnimalValidations::validateWeight);
-        registerValidation(BasicAnimalValidations::validateHeight);
-        registerValidation(BasicAnimalValidations::validateSex);
-        registerValidation(BasicAnimalValidations::validateType);
         registerValidation(BasicAnimalValidations::validateName);
+        registerValidation(BasicAnimalValidations::validateType);
+        registerValidation(BasicAnimalValidations::validateSex);
+        registerValidation(BasicAnimalValidations::validateAge);
+        registerValidation(BasicAnimalValidations::validateHeight);
+        registerValidation(BasicAnimalValidations::validateWeight);
     }
 
     private void registerValidation(Function<Animal, Optional<AnimalValidationError>> validation) {
@@ -39,33 +40,22 @@ public class AnimalValidator {
         private BasicAnimalValidations() {
         }
 
-        private static Optional<AnimalValidationError> validateAge(Animal animal) {
-            if (animal.age() < 0) {
-                return Optional.of(new AnimalValidationError("Age", "Age must be positive"));
+        private static Optional<AnimalValidationError> validateName(Animal animal) {
+            final String name = animal.name();
+
+            if (animal.name().isBlank()) {
+                return Optional.of(new AnimalValidationError(
+                    name,
+                    "Name must be not blank"
+                ));
             }
 
-            return Optional.empty();
-        }
-
-        private static Optional<AnimalValidationError> validateWeight(Animal animal) {
-            if (animal.weight() < 0) {
-                return Optional.of(new AnimalValidationError("Weight", "Weight must be positive"));
-            }
-
-            return Optional.empty();
-        }
-
-        public static Optional<AnimalValidationError> validateHeight(Animal animal) {
-            if (animal.height() < 0) {
-                return Optional.of(new AnimalValidationError("Height", "Height must be positive"));
-            }
-
-            return Optional.empty();
-        }
-
-        private static Optional<AnimalValidationError> validateSex(Animal animal) {
-            if (animal.sex() == null) {
-                return Optional.of(new AnimalValidationError("Sex", "Sex must be not null"));
+            Matcher matcher = PATTERN.matcher(animal.name());
+            if (!matcher.matches()) {
+                return Optional.of(new AnimalValidationError(
+                    name,
+                    "Name must match the pattern \"^[A-Z][a-z]+( [A-Z][a-z]+)*$\""
+                ));
             }
 
             return Optional.empty();
@@ -79,12 +69,33 @@ public class AnimalValidator {
             return Optional.empty();
         }
 
-        private static Optional<AnimalValidationError> validateName(Animal animal) {
-            if (animal.name().isBlank() || animal.name().length() < MIN_NAME_SIZE) {
-                return Optional.of(new AnimalValidationError(
-                    "name",
-                    "Name must be not empty and contains minimum 3 symbols"
-                ));
+        private static Optional<AnimalValidationError> validateSex(Animal animal) {
+            if (animal.sex() == null) {
+                return Optional.of(new AnimalValidationError("Sex", "Sex must be not null"));
+            }
+
+            return Optional.empty();
+        }
+
+        private static Optional<AnimalValidationError> validateAge(Animal animal) {
+            if (animal.age() < 0) {
+                return Optional.of(new AnimalValidationError("Age", "Age cannot be negative"));
+            }
+
+            return Optional.empty();
+        }
+
+        public static Optional<AnimalValidationError> validateHeight(Animal animal) {
+            if (animal.height() < 0) {
+                return Optional.of(new AnimalValidationError("Height", "Height cannot be negative"));
+            }
+
+            return Optional.empty();
+        }
+
+        private static Optional<AnimalValidationError> validateWeight(Animal animal) {
+            if (animal.weight() < 0) {
+                return Optional.of(new AnimalValidationError("Weight", "Weight cannot be negative"));
             }
 
             return Optional.empty();

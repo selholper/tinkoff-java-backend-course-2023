@@ -12,9 +12,6 @@ public final class Task16 {
     @NotNull
     public static List<Animal> listAnimalsSortedByTypeSexName(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         return listAnimals
             .stream()

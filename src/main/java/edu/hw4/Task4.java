@@ -12,9 +12,6 @@ public final class Task4 {
     @NotNull
     public static Animal longestNameAnimal(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         if (listAnimals.isEmpty()) {
             throw new IllegalArgumentException("List is empty, cannot define longest name animal");

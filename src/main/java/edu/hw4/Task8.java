@@ -13,9 +13,6 @@ public final class Task8 {
         List<Animal> listAnimals,
         int k) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         if (k < 1) {
             throw new IllegalArgumentException("Wrong value of height");

@@ -11,9 +11,6 @@ public final class Task9 {
     @NotNull
     public static Integer animalsPawSum(List<Animal> listAnimals) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         return listAnimals
             .stream()

@@ -12,9 +12,6 @@ public final class Task7 {
     @NotNull
     public static Animal kthMostOldAnimal(List<Animal> listAnimals, int k) {
         Objects.requireNonNull(listAnimals);
-        if (listAnimals.contains(null)) {
-            throw new NullPointerException("List contains null elements");
-        }
 
         if (k < 1 || k > listAnimals.size()) {
             throw new IllegalArgumentException("Wrong number of kth most old animal");
