@@ -1,17 +1,16 @@
-package edu.hw3;
+package edu.hw3.Task6;
 
-import edu.hw3.Task6.Stock;
-import edu.hw3.Task6.StockMarket;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.PriorityQueue;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullSource;
-import java.util.PriorityQueue;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
-import java.util.List;
-import java.util.stream.Stream;
+import org.junit.jupiter.params.provider.NullSource;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTask6 {
@@ -82,13 +81,23 @@ public class TestTask6 {
 
     @ParameterizedTest
     @EmptySource
-    @DisplayName("Тестирование работы класса (записи) биржи для пустой приоритетной очереди")
-    void testBestOfferStockMarket_shouldReturnRuntimeExceptionForNullPriorityQueue(
+    @DisplayName("Тестирование работы метода remove класса (записи) "
+        + "биржи для пустой приоритетной очереди")
+    void testBestOfferStockMarket_shouldReturnNoSuchElementExceptionForNullPriorityQueue(
         PriorityQueue <Stock> priorityQueue) {
         StockMarket bestOfferStockMarket = new StockMarket.BestOfferStockMarket(priorityQueue);
         assertThatThrownBy(
             () -> bestOfferStockMarket.remove(new Stock("ABC", 12))
-        ).isInstanceOf(RuntimeException.class);
+        ).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @ParameterizedTest
+    @EmptySource
+    @DisplayName("Тестирование работы метода mostValuableStock класса (записи) "
+        + "биржи для пустой приоритетной очереди")
+    void testBestOfferStockMarket_shouldReturnRuntimeExceptionForNullPriorityQueue(
+        PriorityQueue <Stock> priorityQueue) {
+        StockMarket bestOfferStockMarket = new StockMarket.BestOfferStockMarket(priorityQueue);
 
         assertThatThrownBy(
             bestOfferStockMarket::mostValuableStock

@@ -1,5 +1,6 @@
 package edu.hw3.Task6;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.regex.Matcher;
@@ -43,10 +44,6 @@ public sealed interface StockMarket {
 
             Matcher matcherTickerPattern = TICKER_PATTERN.matcher(stock.ticker());
 
-            if (priorityStocks.isEmpty()) {
-                throw new RuntimeException("Try to remove stock from empty stock market");
-            }
-
             if (!matcherTickerPattern.matches()) {
                 throw new IllegalArgumentException("Invalid stock try to remove: stock ticker is incorrect");
             }
@@ -55,7 +52,10 @@ public sealed interface StockMarket {
                 throw new IllegalArgumentException("Invalid stock try to remove: stock price is negative");
             }
 
-            priorityStocks.remove(stock);
+            if (!priorityStocks.remove(stock)) {
+                throw new NoSuchElementException("No such stock in stock market: {"
+                    + stock.ticker() + ", " + stock.price() + "}");
+            }
         }
 
         @Override

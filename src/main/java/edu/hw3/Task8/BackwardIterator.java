@@ -2,6 +2,7 @@ package edu.hw3.Task8;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class BackwardIterator<T> implements Iterator<T> {
@@ -23,7 +24,7 @@ public class BackwardIterator<T> implements Iterator<T> {
     @Override
     public T next() {
         if (!hasNext()) {
-            throw new RuntimeException("Next element does not exist");
+            throw new NoSuchElementException("Next element does not exist");
         }
 
         return list.get(currentIndex--);

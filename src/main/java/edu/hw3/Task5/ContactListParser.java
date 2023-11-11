@@ -43,12 +43,10 @@ public final class ContactListParser {
             }
         }
 
-        if (sortMode.equals("ASC")) {
-            sortedContacts.sort(Comparator.naturalOrder());
-        } else if (sortMode.equals("DESC")) {
-            sortedContacts.sort(Comparator.reverseOrder());
-        } else {
-            throw new IllegalArgumentException("Wrong sort mode!");
+        switch (sortMode) {
+            case "ASC" -> sortedContacts.sort(Comparator.naturalOrder());
+            case "DESC" -> sortedContacts.sort(Comparator.reverseOrder());
+            default -> throw new IllegalArgumentException("Wrong sort mode!");
         }
 
         return sortedContacts;

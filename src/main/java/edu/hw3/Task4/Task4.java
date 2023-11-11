@@ -1,4 +1,4 @@
-package edu.hw3;
+package edu.hw3.Task4;
 
 public final class Task4 {
     private static final int MIN_ARABIC_NUMBER = 1;

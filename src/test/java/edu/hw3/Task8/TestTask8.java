@@ -1,14 +1,14 @@
-package edu.hw3;
+package edu.hw3.Task8;
 
-import edu.hw3.Task8.BackwardIterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;
-import java.util.List;
-import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,12 +41,12 @@ public class TestTask8 {
     @ParameterizedTest
     @EmptySource
     @DisplayName("Тестирование работы методов класса обратного итератора для пустого списка")
-    void testBackwardIterator_shouldReturnRuntimeException(List<String> list) {
+    void testBackwardIterator_shouldReturnNoSuchElementException(List<String> list) {
         BackwardIterator <String> backwardIterator = new BackwardIterator<>(list);
 
         assertThatThrownBy(
             backwardIterator::next
-        ).isInstanceOf(RuntimeException.class);
+        ).isInstanceOf(NoSuchElementException.class);
     }
 
     @ParameterizedTest
