@@ -10,9 +10,10 @@ import java.util.Queue;
 public class BreadthFirstMazeSolver extends AbstractMazeSolver {
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
-        if (isCoordinatesValid(maze, start, end)) {
+        if (!isCoordinatesValid(maze, start, end)) {
             throw new IllegalArgumentException("Invalid coordinates");
         }
+
         initSolver(maze);
         Queue<Coordinate> queue = new LinkedList<>();
         Coordinate[][] parents = new Coordinate[maze.getHeight()][maze.getWidth()];
@@ -22,6 +23,7 @@ public class BreadthFirstMazeSolver extends AbstractMazeSolver {
         while (!queue.isEmpty()) {
             Coordinate current = queue.poll();
             List<Coordinate> neighbours = getNeighbours(current);
+
             for (Coordinate neighbour : neighbours) {
                 if (!visited[neighbour.row()][neighbour.column()]) {
                     visited[neighbour.row()][neighbour.column()] = true;
@@ -34,6 +36,7 @@ public class BreadthFirstMazeSolver extends AbstractMazeSolver {
         if (!visited[end.row()][end.column()]) {
             return Collections.emptyList();
         }
+
         path.add(end);
         Coordinate current = parents[end.row()][end.column()];
         while (!current.equals(start)) {
@@ -41,6 +44,7 @@ public class BreadthFirstMazeSolver extends AbstractMazeSolver {
             current = parents[current.row()][current.column()];
         }
         path.add(start);
+
         return path;
     }
 }
