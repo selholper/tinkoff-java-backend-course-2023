@@ -62,7 +62,6 @@ public class TestTask1 {
             if (!Files.exists(outputPath)) {
                 Files.createFile(outputPath);
             }
-            Files.createFile(outputPath);
             assertThatThrownBy(
                 () -> new DiskMap(outputPath)
                     .writeToFile(Paths.get(nonExistentPath))
@@ -94,7 +93,7 @@ public class TestTask1 {
         try {
             Path inputPath = Paths.get(INPUT_PATH);
 
-            if(!Files.exists(inputPath)) {
+            if (!Files.exists(inputPath)) {
                 Files.createFile(inputPath);
             }
 
