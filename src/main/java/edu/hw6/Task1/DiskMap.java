@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,33 +16,25 @@ import org.jetbrains.annotations.NotNull;
 
 public class DiskMap implements Map<String, String> {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final HashMap<String, String> map;
-
-    public DiskMap() {
-        map = new HashMap<>();
-    }
+    private final Path filePath;
 
     public DiskMap(Path filePath) {
+        this.filePath = filePath;
         if (!Files.exists(filePath)) {
             try {
                 Files.createFile(filePath);
+                LOGGER.trace("Created a file along the path: {}", filePath.toString());
             } catch (IOException exception) {
                 throw new RuntimeException(exception);
             }
-            LOGGER.trace("Create a new file on the path: {}", filePath.toString());
         }
-        map = new HashMap<>();
     }
 
-    public void readFromFile(Path filePath) {
-        if (!Files.exists(filePath)) {
-            throw new RuntimeException("The file at the specified path does not exist");
-        }
-
+    public Map<String, String> readFromFile(Path filePath) {
         try {
-            clear();
             List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
-            Map<String, String> parsedMap = lines.stream()
+            Map<String, String> parsedMap = lines
+                .stream()
                 .map(entry -> entry.split(":"))
                 .collect(
                     Collectors.toMap(
@@ -53,7 +44,7 @@ public class DiskMap implements Map<String, String> {
                 );
             LOGGER.trace("Map parsed from path \"{}\": {}", filePath.toString(), parsedMap);
 
-            putAll(parsedMap);
+            return parsedMap;
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new ArrayIndexOutOfBoundsException("Each line of file must correspond next regex: "
                 + "«^.*:.+$»");
@@ -62,17 +53,8 @@ public class DiskMap implements Map<String, String> {
         }
     }
 
-    public void writeToFile(Path filePath) {
-        if (!Files.exists(filePath)) {
-            try {
-                Files.createFile(filePath);
-            } catch (IOException exception) {
-                throw new RuntimeException(exception);
-            }
-            LOGGER.trace("Create a new file to write on the path: {}", filePath.toString());
-        }
-
-        List<String> lines = entrySet()
+    public void writeToFile(Path filePath, Map<String, String> map) {
+        List<String> lines = map.entrySet()
             .stream()
             .map(entry -> entry.getKey() + ":" + entry.getValue())
             .toList();
@@ -88,64 +70,74 @@ public class DiskMap implements Map<String, String> {
 
     @Override
     public int size() {
-        return map.size();
+        return readFromFile(filePath).size();
     }
 
     @Override
     public boolean isEmpty() {
-        return map.isEmpty();
+        return readFromFile(filePath).isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return map.containsKey(key);
+        return readFromFile(filePath).containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return map.containsValue(value);
+        return readFromFile(filePath).containsValue(value);
     }
 
     @Override
     public String get(Object key) {
-        return map.get(key);
+        return readFromFile(filePath).get(key);
     }
 
     @Override
     public String put(String key, String value) {
-        return map.put(key, value);
+        Map<String, String> map = readFromFile(filePath);
+        String result = map.put(key, value);
+        writeToFile(filePath, map);
+
+        return result;
     }
 
     @Override
     public String remove(Object key) {
-        return map.remove(key);
+        Map<String, String> map = readFromFile(filePath);
+        String result = map.remove(key);
+        writeToFile(filePath, map);
+
+        return result;
     }
 
     @Override
     public void putAll(@NotNull Map<? extends String, ? extends String> anotherMap) {
+        Map<String, String> map = readFromFile(filePath);
         map.putAll(anotherMap);
+        writeToFile(filePath, map);
     }
 
     @Override
     public void clear() {
-        map.clear();
+        writeToFile(filePath, Map.of());
     }
 
     @Override
     @NotNull
     public Set<String> keySet() {
-        return map.keySet();
+        return readFromFile(filePath).keySet();
     }
 
     @Override
     @NotNull
     public Collection<String> values() {
-        return map.values();
+        return readFromFile(filePath).values();
     }
 
     @Override
     @NotNull
     public Set<Entry<String, String>> entrySet() {
-        return map.entrySet();
+        return readFromFile(filePath).entrySet();
     }
 }
