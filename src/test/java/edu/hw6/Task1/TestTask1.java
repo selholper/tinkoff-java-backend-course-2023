@@ -20,7 +20,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class TestTask1 {
     private static final String INPUT_PATH = "src/test/java/edu/hw6/Task1/IOFiles/input.txt";
     private static final String OUTPUT_PATH = "src/test/java/edu/hw6/Task1/IOFiles/output.txt";
@@ -36,12 +35,14 @@ public class TestTask1 {
 
     @ParameterizedTest
     @ValueSource(
-        strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "///"}
+        strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "!^&#@%\\12/aslkdjf.1.txt"}
     )
     void testDiskMapClassReadFromFileMethod_shouldReturnRuntimeExceptionForNonExistentPath(String nonExistentPath) {
         try {
             Path inputPath = Paths.get(INPUT_PATH);
-            Files.createFile(inputPath);
+            if (!Files.exists(inputPath)) {
+                Files.createFile(inputPath);
+            }
             assertThatThrownBy(
                 () -> new DiskMap(inputPath)
                     .readFromFile(Paths.get(nonExistentPath))
@@ -53,11 +54,14 @@ public class TestTask1 {
 
     @ParameterizedTest
     @ValueSource(
-        strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "///"}
+        strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "!^&#@%\\12/aslkdjf.1.txt"}
     )
     void testDiskMapClassWriteToFileMethod_shouldReturnRuntimeExceptionForNonExistentPath(String nonExistentPath) {
         try {
             Path outputPath = Paths.get(OUTPUT_PATH);
+            if (!Files.exists(outputPath)) {
+                Files.createFile(outputPath);
+            }
             Files.createFile(outputPath);
             assertThatThrownBy(
                 () -> new DiskMap(outputPath)
@@ -89,7 +93,10 @@ public class TestTask1 {
     void testDiskMapClassReadFromFileMethod_shouldReturnArrayIndexOutOfBoundsException(List<String> list) {
         try {
             Path inputPath = Paths.get(INPUT_PATH);
-            Files.createFile(inputPath);
+
+            if(!Files.exists(inputPath)) {
+                Files.createFile(inputPath);
+            }
 
             Files.write(inputPath, list, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
 
@@ -161,8 +168,12 @@ public class TestTask1 {
             Path inputPath = Paths.get(INPUT_PATH);
             Path outputPath = Paths.get(OUTPUT_PATH);
 
-            Files.createFile(inputPath);
-            Files.createFile(outputPath);
+            if (!Files.exists(inputPath)) {
+                Files.createFile(inputPath);
+            }
+            if (!Files.exists(outputPath)) {
+                Files.createFile(outputPath);
+            }
 
             Files.write(inputPath, list, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
             DiskMap diskMap = new DiskMap(inputPath);
@@ -183,31 +194,22 @@ public class TestTask1 {
 
     @Test
     void testDiskMapMethods_shouldReturnCorrectResult() {
-        try {
-            Path inputPath = Paths.get(INPUT_PATH);
+        DiskMap diskMap = new DiskMap();
 
-            Files.createFile(inputPath);
+        assertThat(diskMap.isEmpty()).isTrue();
 
-            DiskMap diskMap = new DiskMap(inputPath);
+        diskMap.put("1", "1");
 
-            assertThat(diskMap.isEmpty()).isTrue();
+        assertThat(diskMap.size()).isEqualTo(1);
+        assertThat(diskMap.containsKey("1")).isTrue();
+        assertThat(diskMap.containsValue("1")).isTrue();
+        assertThat(diskMap.get("1")).isEqualTo("1");
+        assertThat(diskMap.put("1", "2")).isEqualTo("1");
+        assertThat(diskMap.remove("1")).isEqualTo("2");
 
-            diskMap.put("1", "1");
+        diskMap.putAll(Map.of("1", "1", "2", "2", "a", "b"));
 
-            assertThat(diskMap.size()).isEqualTo(1);
-            assertThat(diskMap.containsKey("1")).isTrue();
-            assertThat(diskMap.containsValue("1")).isTrue();
-            assertThat(diskMap.get("1")).isEqualTo("1");
-            assertThat(diskMap.put("1", "2")).isEqualTo("1");
-            assertThat(diskMap.remove("1")).isEqualTo("2");
-
-            diskMap.putAll(Map.of("1", "1", "2", "2", "a", "b"));
-
-            assertThat(diskMap.keySet()).isEqualTo(Set.of("1", "2", "a"));
-            assertThat(diskMap.values().stream().sorted().toList()).isEqualTo(List.of("1", "2", "b"));
-
-            Files.delete(inputPath);
-        } catch (IOException ignored) {
-        }
+        assertThat(diskMap.keySet()).isEqualTo(Set.of("1", "2", "a"));
+        assertThat(diskMap.values().stream().sorted().toList()).isEqualTo(List.of("1", "2", "b"));
     }
 }

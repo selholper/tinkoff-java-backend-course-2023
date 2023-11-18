@@ -19,6 +19,10 @@ public class DiskMap implements Map<String, String> {
     private static final Logger LOGGER = LogManager.getLogger();
     private final HashMap<String, String> map;
 
+    public DiskMap() {
+        map = new HashMap<>();
+    }
+
     public DiskMap(Path filePath) {
         if (!Files.exists(filePath)) {
             try {
