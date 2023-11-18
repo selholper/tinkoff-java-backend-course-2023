@@ -88,7 +88,8 @@ public class TestTask1 {
             ).isInstanceOf(IndexOutOfBoundsException.class);
 
             Files.delete(inputPath);
-        } catch (IOException ignored) {
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
@@ -171,7 +172,8 @@ public class TestTask1 {
 
             Files.delete(inputPath);
             Files.delete(outputPath);
-        } catch (IOException ignored) {
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
