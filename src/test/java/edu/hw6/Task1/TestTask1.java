@@ -8,13 +8,18 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class TestTask1 {
     private static final String INPUT_PATH = "src/test/java/edu/hw6/Task1/IOFiles/input.txt";
@@ -172,6 +177,36 @@ public class TestTask1 {
 
             Files.delete(inputPath);
             Files.delete(outputPath);
+        } catch (IOException ignored) {
+        }
+    }
+
+    @Test
+    void testDiskMapMethods_shouldReturnCorrectResult() {
+        try {
+            Path inputPath = Paths.get(INPUT_PATH);
+
+            Files.createFile(inputPath);
+
+            DiskMap diskMap = new DiskMap(inputPath);
+
+            assertThat(diskMap.isEmpty()).isTrue();
+
+            diskMap.put("1", "1");
+
+            assertThat(diskMap.size()).isEqualTo(1);
+            assertThat(diskMap.containsKey("1")).isTrue();
+            assertThat(diskMap.containsValue("1")).isTrue();
+            assertThat(diskMap.get("1")).isEqualTo("1");
+            assertThat(diskMap.put("1", "2")).isEqualTo("1");
+            assertThat(diskMap.remove("1")).isEqualTo("2");
+
+            diskMap.putAll(Map.of("1", "1", "2", "2", "a", "b"));
+
+            assertThat(diskMap.keySet()).isEqualTo(Set.of("1", "2", "a"));
+            assertThat(diskMap.values()).isEqualTo(Set.of("1", "2", "b"));
+
+            Files.delete(inputPath);
         } catch (IOException ignored) {
         }
     }
