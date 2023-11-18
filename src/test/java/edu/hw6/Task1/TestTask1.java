@@ -204,7 +204,7 @@ public class TestTask1 {
             diskMap.putAll(Map.of("1", "1", "2", "2", "a", "b"));
 
             assertThat(diskMap.keySet()).isEqualTo(Set.of("1", "2", "a"));
-            assertThat(diskMap.values()).isEqualTo(Set.of("1", "2", "b"));
+            assertThat(diskMap.values().stream().sorted().toList()).isEqualTo(List.of("1", "2", "b"));
 
             Files.delete(inputPath);
         } catch (IOException ignored) {
