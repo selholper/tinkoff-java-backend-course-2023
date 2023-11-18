@@ -38,18 +38,10 @@ public class TestTask1 {
         strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "!^&#@%\\12/aslkdjf.1.txt"}
     )
     void testDiskMapClassReadFromFileMethod_shouldReturnRuntimeExceptionForNonExistentPath(String nonExistentPath) {
-        try {
-            Path inputPath = Paths.get(INPUT_PATH);
-            if (!Files.exists(inputPath)) {
-                Files.createFile(inputPath);
-            }
-            assertThatThrownBy(
-                () -> new DiskMap(inputPath)
-                    .readFromFile(Paths.get(nonExistentPath))
-            ).isInstanceOf(RuntimeException.class);
-            Files.delete(inputPath);
-        } catch (IOException ignored) {
-        }
+        assertThatThrownBy(
+            () -> new DiskMap(Paths.get(INPUT_PATH))
+                .readFromFile(Paths.get(nonExistentPath))
+        ).isInstanceOf(RuntimeException.class);
     }
 
     @ParameterizedTest
@@ -57,18 +49,10 @@ public class TestTask1 {
         strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "!^&#@%\\12/aslkdjf.1.txt"}
     )
     void testDiskMapClassWriteToFileMethod_shouldReturnRuntimeExceptionForNonExistentPath(String nonExistentPath) {
-        try {
-            Path outputPath = Paths.get(OUTPUT_PATH);
-            if (!Files.exists(outputPath)) {
-                Files.createFile(outputPath);
-            }
-            assertThatThrownBy(
-                () -> new DiskMap(outputPath)
-                    .writeToFile(Paths.get(nonExistentPath))
-            ).isInstanceOf(RuntimeException.class);
-            Files.delete(outputPath);
-        } catch (IOException ignored) {
-        }
+        assertThatThrownBy(
+            () -> new DiskMap(Paths.get(OUTPUT_PATH))
+                .writeToFile(Paths.get(nonExistentPath))
+        ).isInstanceOf(RuntimeException.class);
     }
 
     private static Stream<Arguments> testDiskMapClassReadFromFileMethod_shouldReturnArrayIndexOutOfBoundsException() {
