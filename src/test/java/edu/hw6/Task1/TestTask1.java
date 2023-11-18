@@ -21,7 +21,7 @@ public class TestTask1 {
     private static final String OUTPUT_PATH = "src/test/java/edu/hw6/Task1/IOFiles/output.txt";
     @ParameterizedTest
     @ValueSource(
-        strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "///"}
+        strings = {"/NO_SUCH_CATALOGUE/123", "/src/NO_SUCH_CATALOGUE/1.txt", "!^&#@%\\12/aslkdjf.1.txt"}
     )
     void testDiskMapClass_shouldThrowRuntimeExceptionForNonExistentPath(String nonExistentPath) {
         assertThatThrownBy(
