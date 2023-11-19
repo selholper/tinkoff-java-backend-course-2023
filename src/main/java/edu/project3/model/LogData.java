@@ -10,6 +10,10 @@ public record LogData(List<String> sources, OffsetDateTime from, OffsetDateTime 
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    public LogData(List<String> sources) {
+        this(sources, (String) null, null);
+    }
+
     public LogData(List<String> sources, String from, String to) {
         this(
             sources,

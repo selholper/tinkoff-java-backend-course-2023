@@ -12,14 +12,14 @@ public class DateLogFilter extends LogFilter {
     private final OffsetDateTime to;
 
     public DateLogFilter(String from, String to) {
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
         try {
             this.from = from == null ? OffsetDateTime.MIN : LocalDate.parse(from, formatter).atStartOfDay().atOffset(
                 ZoneOffset.UTC);
             this.to = to == null ? OffsetDateTime.MAX
                 : LocalDate.parse(to, formatter).atStartOfDay().atOffset(ZoneOffset.UTC);
         } catch (Exception e) {
-            throw new IllegalArgumentException("wrong date format, use \"yyyy-MM-dd\"");
+            throw new IllegalArgumentException("wrong date format, use \"uuuu-MM-dd\"");
         }
     }
 
