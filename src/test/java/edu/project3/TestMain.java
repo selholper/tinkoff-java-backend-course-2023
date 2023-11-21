@@ -5,7 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class TestMain {
     @Test
-    void testMainClass_shouldThrowIllegalArgumentException() {
+    void testMainMethod_shouldThrowIllegalArgumentException() {
         assertThatThrownBy(
             () -> Main.main(new String[]{})
         ).isInstanceOf(IllegalArgumentException.class);

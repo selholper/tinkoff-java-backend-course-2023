@@ -27,7 +27,8 @@ public class LocalLogRetriever implements LogRetriever {
             Integer.MAX_VALUE,
             FileVisitOption.FOLLOW_LINKS
         )) {
-            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:" + LOGS_DIRECTORY + path);
+            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(
+                "glob:" + LOGS_DIRECTORY + path);
             pathStream
                 .filter(Files::isRegularFile)
                 .filter(pathMatcher::matches)
