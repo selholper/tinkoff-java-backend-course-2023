@@ -35,39 +35,21 @@ public class TestTask8 {
                     123,
                     3,
                     true
-                ),
+                )
+            ),
 
-                Arguments.of(
-                    List.of(
-                        new Animal(
-                            "Bobby",
-                            Animal.Type.DOG,
-                            Animal.Sex.MALE,
-                            3,
-                            154,
-                            10,
-                            true
-                        ),
-
-                        new Animal(
-                            "Gosha",
-                            Animal.Type.SPIDER,
-                            Animal.Sex.MALE,
-                            5,
-                            23,
-                            1,
-                            true),
-
-                        new Animal(
-                            "Murka",
-                            Animal.Type.CAT,
-                            Animal.Sex.FEMALE,
-                            10,
-                            123,
-                            3,
-                            true)
+            Arguments.of(
+                List.of(
+                    new Animal(
+                        "Bobby",
+                        Animal.Type.DOG,
+                        Animal.Sex.MALE,
+                        3,
+                        154,
+                        10,
+                        true
                     ),
-                    100,
+
                     new Animal(
                         "Gosha",
                         Animal.Type.SPIDER,
@@ -75,42 +57,60 @@ public class TestTask8 {
                         5,
                         23,
                         1,
+                        true),
+
+                    new Animal(
+                        "Murka",
+                        Animal.Type.CAT,
+                        Animal.Sex.FEMALE,
+                        10,
+                        123,
+                        3,
                         true)
                 ),
+                100,
+                new Animal(
+                    "Gosha",
+                    Animal.Type.SPIDER,
+                    Animal.Sex.MALE,
+                    5,
+                    23,
+                    1,
+                    true)
+            ),
 
-                Arguments.of(
-                    List.of(
-                        new Animal(
-                            "Bobby",
-                            Animal.Type.DOG,
-                            Animal.Sex.MALE,
-                            3,
-                            154,
-                            10,
-                            true
-                        ),
-
-                        new Animal(
-                            "Gosha",
-                            Animal.Type.SPIDER,
-                            Animal.Sex.MALE,
-                            5,
-                            23,
-                            1,
-                            true),
-
-                        new Animal(
-                            "Murka",
-                            Animal.Type.CAT,
-                            Animal.Sex.FEMALE,
-                            10,
-                            123,
-                            3,
-                            true)
+            Arguments.of(
+                List.of(
+                    new Animal(
+                        "Bobby",
+                        Animal.Type.DOG,
+                        Animal.Sex.MALE,
+                        3,
+                        154,
+                        10,
+                        true
                     ),
-                    10,
-                    null
-                )
+
+                    new Animal(
+                        "Gosha",
+                        Animal.Type.SPIDER,
+                        Animal.Sex.MALE,
+                        5,
+                        23,
+                        1,
+                        true),
+
+                    new Animal(
+                        "Murka",
+                        Animal.Type.CAT,
+                        Animal.Sex.FEMALE,
+                        10,
+                        123,
+                        3,
+                        true)
+                ),
+                10,
+                null
             )
         );
     }
@@ -142,7 +142,7 @@ public class TestTask8 {
     ) {
         assertEquals(
             Task8.heaviestAnimalAmongAnimalsUnderGivenHeight(listAnimals, k),
-            Optional.of(optionalAnimal)
+            Optional.ofNullable(optionalAnimal)
         );
     }
 }
