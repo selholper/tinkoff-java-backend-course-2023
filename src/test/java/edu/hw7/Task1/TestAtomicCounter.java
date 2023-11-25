@@ -7,14 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestAtomicCounter {
     @ParameterizedTest
     @ValueSource(
-        ints = {1, 5, 10}
+        ints = {1, 5, 10, 100, 10000}
     )
-    public void testAtomicCounter(int threadsNumber) {
+    void testAtomicCounter_shouldReturnResult(int threadsNumber) {
         AtomicCounter counter = new AtomicCounter();
-        Incrementer[] threads = new Incrementer[threadsNumber];
+        IncrementerThread[] threads = new IncrementerThread[threadsNumber];
 
         for (int i = 0; i < threadsNumber; ++i) {
-            threads[i] = new Incrementer(counter);
+            threads[i] = new IncrementerThread(counter);
             threads[i].start();
         }
 

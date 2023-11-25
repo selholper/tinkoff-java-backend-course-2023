@@ -1,9 +1,9 @@
 package edu.hw7.Task1;
 
-public class Incrementer extends Thread  {
+public final class IncrementerThread extends Thread  {
     private final AtomicCounter counter;
 
-    Incrementer(AtomicCounter counter) {
+    IncrementerThread(AtomicCounter counter) {
         this.counter = counter;
     }
 
