@@ -17,6 +17,11 @@ public class TestCachingLockPersonDatabase {
         PersonDatabase personDatabase = new CachingLockPersonDatabase();
 
         Person person = new Person(1, "Ivan", "St. Petersburg", "+79876543210");
+
+        assertThat(person.name()).isEqualTo("Ivan");
+        assertThat(person.address()).isEqualTo("St. Petersburg");
+        assertThat(person.phoneNumber()).isEqualTo("+79876543210");
+
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.submit(() -> personDatabase.add(person));
 
