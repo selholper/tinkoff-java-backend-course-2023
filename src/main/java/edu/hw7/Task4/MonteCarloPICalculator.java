@@ -46,7 +46,7 @@ public final class MonteCarloPICalculator {
             Future<Long> threadExecutorService;
             threadExecutorService = executorService.submit(() -> {
                 long threadCircleCount = 0;
-                for (int i = 0; i < totalCount / availableCoresNumber; ++i) {
+                for (long i = 0; i < totalCount / availableCoresNumber; ++i) {
                     double x = ThreadLocalRandom.current().nextDouble();
                     double y = ThreadLocalRandom.current().nextDouble();
                     if (isPointInsideCircle(x, y)) {
