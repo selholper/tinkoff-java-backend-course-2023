@@ -20,8 +20,8 @@ public class TestTask2 {
             threadPool.execute(() -> actual.add(Fibonacci.calculateFibonacci(n)));
         }
 
-        threadPool.close();
         assertThat(actual).containsExactlyInAnyOrderElementsOf(excepted);
+        threadPool.close();
     }
 
     @Test
