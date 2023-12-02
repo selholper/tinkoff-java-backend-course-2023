@@ -27,7 +27,7 @@ public final class FixedThreadPool implements ThreadPool {
 
     @Override
     public void start() {
-        for (int i = 0; i < threads.length; i++) {
+        for (int i = 0; i < threads.length; ++i) {
             threads[i] = new ThreadWorker();
             threads[i].start();
         }

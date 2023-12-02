@@ -5,14 +5,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class TestTask2 {
     @Test
     @SneakyThrows
     void testCalculateFibonacciMethod_shouldReturnCorrectResultInMultiThreadMode() {
+        ThreadPool threadPool = FixedThreadPool.create(Runtime.getRuntime().availableProcessors());
         final List<Integer> excepted = List.of(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144);
         final List<Integer> actual = new CopyOnWriteArrayList<>();
-        ThreadPool threadPool = FixedThreadPool.create(Runtime.getRuntime().availableProcessors());
+
 
         for (int i = 0; i <= 12; ++i) {
             final int n = i;
@@ -20,6 +22,13 @@ public class TestTask2 {
         }
 
         threadPool.close();
-        assertThat(excepted).containsExactlyInAnyOrderElementsOf(actual);
+        assertThat(actual).containsExactlyInAnyOrderElementsOf(excepted);
+    }
+
+    @Test
+    void testFixedThreadPoolCreateMethod_shouldThrowIllegalArgumentException() {
+        assertThatThrownBy(
+            () -> FixedThreadPool.create(0)
+        ).isInstanceOf(IllegalArgumentException.class);
     }
 }
