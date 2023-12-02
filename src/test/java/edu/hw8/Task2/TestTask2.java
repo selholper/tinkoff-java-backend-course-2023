@@ -17,7 +17,9 @@ public class TestTask2 {
 
         for (int i = 0; i <= 12; ++i) {
             final int n = i;
-            threadPool.execute(() -> actual.add(Fibonacci.calculateFibonacci(n)));
+            threadPool.execute(() -> {
+                actual.add(Fibonacci.calculateFibonacci(n));
+            });
         }
 
         threadPool.close();
