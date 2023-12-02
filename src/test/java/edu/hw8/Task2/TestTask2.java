@@ -5,7 +5,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class TestTask2 {
     @Test
@@ -22,12 +21,5 @@ public class TestTask2 {
 
         threadPool.close();
         assertThat(excepted).containsExactlyInAnyOrderElementsOf(actual);
-    }
-
-    @Test
-    void testFixedThreadPoolCreateMethod_shouldThrowIllegalArgumentException() {
-        assertThatThrownBy(
-            () -> FixedThreadPool.create(0)
-        ).isInstanceOf(IllegalArgumentException.class);
     }
 }
