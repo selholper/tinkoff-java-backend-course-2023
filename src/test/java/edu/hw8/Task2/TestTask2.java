@@ -12,9 +12,8 @@ public class TestTask2 {
     @SneakyThrows
     void testCalculateFibonacciMethod_shouldReturnCorrectResultInMultiThreadMode() {
         ThreadPool threadPool = FixedThreadPool.create(Runtime.getRuntime().availableProcessors());
-        final List<Integer> excepted = List.of(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144);
+        List<Integer> excepted = List.of(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144);
         final List<Integer> actual = new CopyOnWriteArrayList<>();
-
 
         for (int i = 0; i <= 12; ++i) {
             final int n = i;
