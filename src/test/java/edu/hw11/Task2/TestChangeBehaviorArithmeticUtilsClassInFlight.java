@@ -18,7 +18,7 @@ public class TestChangeBehaviorArithmeticUtilsClassInFlight {
 
     @ParameterizedTest
     @MethodSource
-    public void testReloadM_shouldChangeSumMethodInFlight(int a, int b, int res) {
+    void testReloadM_shouldChangeSumMethodInFlight(int a, int b, int res) {
         ByteBuddyAgent.install();
         ClassBehaviorReloader.reload();
         Assertions.assertThat(ArithmeticUtils.sum(a, b)).isEqualTo(res);
