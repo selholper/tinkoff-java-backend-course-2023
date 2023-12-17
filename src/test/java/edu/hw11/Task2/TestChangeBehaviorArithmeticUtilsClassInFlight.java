@@ -9,6 +9,6 @@ public class TestChangeBehaviorArithmeticUtilsClassInFlight {
     public void testReloadM_shouldChangeSumMethodInFlight() {
         ByteBuddyAgent.install();
         ClassBehaviorReloader.reload();
-        Assertions.assertThat(ArithmeticUtils.sum(11, 4999)).isEqualTo(54989);
+        Assertions.assertThat(ArithmeticUtils.sum(11, 17)).isEqualTo(187);
     }
 }
