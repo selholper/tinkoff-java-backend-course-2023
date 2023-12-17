@@ -23,7 +23,7 @@ import org.openjdk.jmh.runner.options.TimeValue;
 
 @State(Scope.Thread)
 public class ReflectionBenchmark {
-    private static final String TESTING_METHOD = "surname";
+    private static final String TESTING_METHOD = "name";
     private static final int WARMUP_TIME = 5;
     private static final int MEASUREMENT_TIME = 5;
     private Student student;
