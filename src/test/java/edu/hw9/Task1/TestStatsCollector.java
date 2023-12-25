@@ -24,7 +24,7 @@ public class TestStatsCollector {
 
     @SneakyThrows
     @Test
-    public void testStatsMethod_shouldThrowRuntimeExceptionForIncorrectMetric() {
+    public void testStatsMethod_shouldThrowExceptionForIncorrectMetric() {
         StatsCollector statsCollector = new StatsCollector(8);
         statsCollector.push("metric0", new double[]{});
 
