@@ -3,6 +3,7 @@ package edu.hw9.Task1;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class TestStatsCollector {
     @SneakyThrows
@@ -19,5 +20,16 @@ public class TestStatsCollector {
             new Metric("metric1", 15.0, 3.0, 1.0, 5.0),
             new Metric("metric2", 30.8, 4.4, 1.1, 7.7)
         );
+    }
+
+    @SneakyThrows
+    @Test
+    public void testStatsMethod_shouldThrowRuntimeExceptionForIncorrectMetric() {
+        StatsCollector statsCollector = new StatsCollector(8);
+        statsCollector.push("metric0", new double[]{});
+
+        assertThatThrownBy(
+            statsCollector::stats
+        ).isInstanceOf(java.util.concurrent.ExecutionException.class);
     }
 }
