@@ -38,15 +38,15 @@ public class TestFilesProcessor {
     @Test
     public void findDirectoriesWithMoreThanNumberFiles_shouldReturnListOfDirectoriesWithMoreThanNumberFiles() {
         List<String> actual = FilesProcessor.findPathsWithMoreFilesThanGiven(path, 3);
-        List<String> directoryNames = actual.stream().map(el -> el.substring(el.lastIndexOf('\\'))).toList();
-        assertThat(directoryNames).containsExactlyInAnyOrder("\\1", "\\2", "\\6", "\\7");
+        List<String> directoryNames = actual.stream().map(el -> el.substring(el.lastIndexOf('/'))).toList();
+        assertThat(directoryNames).containsExactlyInAnyOrder("/1", "/2", "/6", "/7");
     }
 
     @Test
     public void filterFilesByPredicate_shouldReturnListOfFilesFilteredByExtensionPredicate() {
         List<String> actual = FilesProcessor.filterFilesByPredicate(path, p -> p.toString().endsWith(".tar"));
-        List<String> fileNames = actual.stream().map(el -> el.substring(el.lastIndexOf('\\'))).toList();
-        assertThat(fileNames).containsExactlyInAnyOrder("\\0.tar", "\\1.tar", "\\2.tar");
+        List<String> fileNames = actual.stream().map(el -> el.substring(el.lastIndexOf('/'))).toList();
+        assertThat(fileNames).containsExactlyInAnyOrder("/0.tar", "/1.tar", "/2.tar");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class TestFilesProcessor {
                 throw new RuntimeException(e);
             }
         });
-        List<String> fileNames = actual.stream().map(el -> el.substring(el.lastIndexOf('\\'))).toList();
-        assertThat(fileNames).containsExactlyInAnyOrder("\\1.txt");
+        List<String> fileNames = actual.stream().map(el -> el.substring(el.lastIndexOf('/'))).toList();
+        assertThat(fileNames).containsExactlyInAnyOrder("/1.txt");
     }
 }
