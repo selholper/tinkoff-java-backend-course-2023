@@ -32,12 +32,12 @@ public abstract class AbstractMazeSolver implements MazeSolver {
         return neighbours;
     }
 
-    protected boolean isCoordinatesValid(Maze maze, Coordinate start, Coordinate end) {
+    protected boolean isNotCoordinatesValid(Maze maze, Coordinate start, Coordinate end) {
         int height = maze.getHeight();
         int width = maze.getWidth();
-        return MazeUtils.isCoordinatesValid(start.row(), start.column(), height, width)
-            && MazeUtils.isCoordinatesValid(end.row(), end.column(), height, width)
-            && maze.getGrid()[start.row()][start.column()].getType() != Type.WALL
-            && maze.getGrid()[end.row()][end.column()].getType() != Type.WALL;
+        return !MazeUtils.isCoordinatesValid(start.row(), start.column(), height, width)
+            || !MazeUtils.isCoordinatesValid(end.row(), end.column(), height, width)
+            || maze.getGrid()[start.row()][start.column()].getType() == Type.WALL
+            || maze.getGrid()[end.row()][end.column()].getType() == Type.WALL;
     }
 }
