@@ -9,7 +9,7 @@ public class DepthFirstMazeSolver extends AbstractMazeSolver {
 
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
-        if (!isCoordinatesValid(maze, start, end)) {
+        if (isNotCoordinatesValid(maze, start, end)) {
             throw new IllegalArgumentException("Invalid coordinates");
         }
         initSolver(maze);

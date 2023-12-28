@@ -10,7 +10,7 @@ import java.util.Queue;
 public class BreadthFirstMazeSolver extends AbstractMazeSolver {
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
-        if (!isCoordinatesValid(maze, start, end)) {
+        if (isNotCoordinatesValid(maze, start, end)) {
             throw new IllegalArgumentException("Invalid coordinates");
         }
 
