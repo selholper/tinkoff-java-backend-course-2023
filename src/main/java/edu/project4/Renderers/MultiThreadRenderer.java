@@ -68,6 +68,7 @@ public class MultiThreadRenderer extends AbstractRenderer {
 
             if (i > -1) {
                 double theta = 0;
+
                 for (int s = 0; s < symmetry; ++s) {
                     theta += 2 * Math.PI / symmetry;
                     Point rotatedPoint = getRotatedPoint(point, theta);
